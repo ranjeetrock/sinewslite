@@ -1,0 +1,72 @@
+{% extends 'news/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+  <nav class="text-sm mb-4 text-black-600">
+    <i class="fa fa-home"></i>
+    <a href="{% url 'news:frontpage' %}" class="hover:text-red-600 transition font-bold" >Home</a> >
+    <span class="text-red-600 font-semibold">Patrakaar Mitra Registration Form</span>
+  </nav>
+
+  <h2 class="text-2xl font-bold border-b-2 border-red-600 inline-block mb-6">
+    Patrakaar Mitra Registration Form
+  </h2>
+
+  <form method="post" class="space-y-6">
+    {% csrf_token %} {{ form.field_name }}
+    
+    <div>
+      <label class="block font-semibold mb-1">Name</label>
+      <input type="text" name="name" placeholder="Your Name" class="w-full border rounded px-3 py-2" required>
+    </div>
+
+    <div>
+      <label class="block font-semibold mb-1">Mobile Number</label>
+      <input type="text" name="mobile" placeholder="Your Mobile or Contact Number" class="w-full border rounded px-3 py-2" required>
+    </div>
+
+    <div>
+      <label class="block font-semibold mb-1">Email address</label>
+      <input type="email" name="email" placeholder="name@example.com" class="w-full border rounded px-3 py-2" required>
+    </div>
+
+    <div>
+      <label class="block font-semibold mb-1">Gender</label>
+      <select name="gender" class="w-full border rounded px-3 py-2" required>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+
+    <div>
+      <label class="block font-semibold mb-1">Category</label>
+      <select name="category" class="w-full border rounded px-3 py-2" required>
+        <option value="">-- Select --</option>
+        <option value="Patrakaar">Patrakaar Mitra</option>
+        <option value="Reporter">Reporter</option>
+        <option value="Cameraman">Cameraman</option>
+        <option value="Member">Member</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+
+    <div>
+      <label class="block font-semibold mb-1">Activity & Work Details (Optional)</label>
+      <textarea name="activity" class="w-full border rounded px-3 py-2" rows="3"></textarea>
+    </div>
+
+    <div>
+      <label class="block font-semibold mb-1">Full Address</label>
+      <textarea name="address" class="w-full border rounded px-3 py-2" rows="3" required></textarea>
+    </div>
+
+    <div>
+      <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded">
+        Click to Submit
+      </button>
+    </div>
+  </form>
+</div>
+{% endblock %}

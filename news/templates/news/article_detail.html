@@ -1,0 +1,17 @@
+{% extends "news/base.html" %}
+{% load humanize %}
+
+
+{% block content %}
+  <article class="max-w-4xl mx-auto">
+    <h1 class="text-3xl font-bold mb-4">{{ article.title }}</h1>
+    <p class="text-sm text-gray-600 mb-4">By {{ article.author }} | {{ article.created_at|naturaltime }}</p>
+    
+    {% if article.image %}
+      <img src="{{ article.image.url }}" alt="{{ article.title }}" class="w-full rounded mb-4">
+    {% endif %}
+    <div class="prose">
+      {{ article.content|safe }}
+    </div>
+  </article>
+{% endblock %}

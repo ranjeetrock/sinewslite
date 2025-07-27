@@ -1,0 +1,27 @@
+{% extends "/base.html" %}
+{% load humanize %}
+
+
+
+{% block content %}
+    <h1 class="text-3xl font-bold mb-6">Latest Articles</h1>
+
+    {% if articles %}
+        {% for article in articles %}
+        <div id="news-container">
+            
+    {% include "news/_article_cards.html" %}
+    
+</div>
+
+
+<div id="loading" style="display: none; text-align: center; margin: 20px;">
+    <img src="{% static 'loading.gif' %}" alt="Loading..." />
+</div>
+
+           
+        {% endfor %}
+    {% else %}
+        <p>No articles found.</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,51 @@
+<!-- {% extends "base.html" %}
+
+{% load static %}
+{% block content %}
+<h2>{{ category.name }}</h2>
+
+<div id="news-container">
+    {% include "news/_article_cards.html" with page_obj=page_obj %}
+</div>
+
+<div id="loading" style="display: none; text-align: center; margin: 20px;">
+    <img src="{% static 'loading.gif' %}" alt="Loading..." />
+</div>
+
+<script>
+let page = 2;
+let loading = false;
+let hasNext = true;
+
+window.addEventListener('scroll', () => {
+    if (!loading && hasNext && (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 300) {
+        loading = true;
+        document.getElementById("loading").style.display = "block";
+
+        // fetch(`?page=${page}`, {
+        //     headers: {
+        //         "X-Requested-With": "XMLHttpRequest"
+        //     }
+        // })
+        const url = new URL(window.location.pathname + window.location.search, window.location.origin);
+url.searchParams.set("page", page);
+
+fetch(url, {
+  headers: { "X-Requested-With": "XMLHttpRequest" }
+})
+
+        .then(response => response.json())
+        .then(data => {
+  console.log("DATA RECEIVED:", data);  // ✅ LOGGING
+  document.getElementById("articles-grid").insertAdjacentHTML("beforeend", data.html);
+  hasNext = data.has_next;
+  page++;
+  loading = false;
+  document.getElementById("loading").style.display = "none";
+})
+
+    }
+});
+</script>
+
+{% endblock %} -->

@@ -1,0 +1,13 @@
+{% extends "news/base.html" %}
+{% load humanize %}
+
+{% block content %}
+  <article class="bg-white p-6 rounded shadow">
+    <h1 class="text-2xl font-bold">{{ object.title }}</h1>
+    <p class="text-sm text-gray-600">{{ object.published_at|date:"M d, Y H:i" }} in 
+       <a href="{% url 'news:category' object.category.slug %}">{{ object.category.name }}</a>
+    </p>
+    <img src="{{ object.image.url }}" alt="" class="my-4 w-full rounded" />
+    <div class="prose">{{ object.content|linebreaks }}</div>
+  </article>
+{% endblock %}

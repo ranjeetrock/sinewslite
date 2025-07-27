@@ -1,0 +1,14 @@
+{% extends "news/base.html" %}
+{% load humanize %}
+
+{% block content %}
+  <h1>Contact Us</h1>
+  <p>If you have feedback or a story tip, drop us a line:</p>
+  <form method="post">
+    {% csrf_token %}
+    <label>Name:<br/><input type="text" name="name" required /></label><br/><br/>
+    <label>Email:<br/><input type="email" name="email" required /></label><br/><br/>
+    <label>Message:<br/><textarea name="message" rows="5" required></textarea></label><br/><br/>
+    <button type="submit">Send Message</button>
+  </form>
+{% endblock %}
