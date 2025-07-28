@@ -264,3 +264,21 @@ def convert_utc_to_ist(utc_time_str):
     ist = pytz.timezone('Asia/Kolkata')
     ist_time = utc_time.astimezone(ist)
     return ist_time.strftime('%d %b %Y, %I:%M %p')  # Example: 26 Jul 2025, 04:15 PM
+
+
+
+# temporary 
+
+# news/views.py
+
+from django.contrib.auth.models import User
+from django.http import HttpResponse
+
+def reset_admin_password(request):
+    try:
+        user = User.objects.get(username='ironman')  # change 'admin' if you used another username
+        user.set_password('9876')  # ✅ change this to your new password
+        user.save()
+        return HttpResponse("✅ Admin password has been reset successfully.")
+    except User.DoesNotExist:
+        return HttpResponse("❌ Admin user not found.")
