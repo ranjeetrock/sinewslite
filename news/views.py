@@ -269,16 +269,17 @@ def convert_utc_to_ist(utc_time_str):
 
 # temporary 
 
-# news/views.py
-
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 
-def reset_admin_password(request):
-    try:
-        user = User.objects.get(username='admin')  # change 'admin' if you used another username
-        user.set_password('NewStrongPassword123!')  # ✅ change this to your new password
-        user.save()
-        return HttpResponse("✅ Admin password has been reset successfully.")
-    except User.DoesNotExist:
-        return HttpResponse("❌ Admin user not found.")
+def create_admin_user(request):
+    username = "admin"
+    password = "admin@1234"  # ✅ CHANGE THIS before deploying!
+    email = "admin@example.com"
+
+    if not User.objects.filter(username=username).exists():
+        User.objects.create_superuser(username=username, email=email, password=password)
+        return HttpResponse("✅ Admin user created successfully.")
+    else:
+        return HttpResponse("⚠️ Admin user already exists.")
+
