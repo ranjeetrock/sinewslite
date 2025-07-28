@@ -276,8 +276,8 @@ from django.http import HttpResponse
 
 def reset_admin_password(request):
     try:
-        user = User.objects.get(username='ironman')  # change 'admin' if you used another username
-        user.set_password('9876')  # ✅ change this to your new password
+        user = User.objects.get(username='admin')  # change 'admin' if you used another username
+        user.set_password('NewStrongPassword123!')  # ✅ change this to your new password
         user.save()
         return HttpResponse("✅ Admin password has been reset successfully.")
     except User.DoesNotExist:
