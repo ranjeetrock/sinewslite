@@ -267,19 +267,4 @@ def convert_utc_to_ist(utc_time_str):
 
 
 
-# temporary 
-
-from django.contrib.auth.models import User
-from django.http import HttpResponse
-
-def create_admin_user(request):
-    username = "admin"
-    password = "admin@1234"  # ✅ CHANGE THIS before deploying!
-    email = "admin@example.com"
-
-    if not User.objects.filter(username=username).exists():
-        User.objects.create_superuser(username=username, email=email, password=password)
-        return HttpResponse("✅ Admin user created successfully.")
-    else:
-        return HttpResponse("⚠️ Admin user already exists.")
 
