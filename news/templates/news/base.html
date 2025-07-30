@@ -5,6 +5,7 @@
 
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SI News Lite</title>
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -14,31 +15,30 @@
 
 <body class="font-sans-mono pt-0">
  
-<!-- 🔲 Secondary Navbar (Dark Red with White Text) -->
-<div class="bg-black text-white border-black-400 dark:bg-gray-900">
-  <div class="container mx-auto px-4 py-2 flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-4">
-
-    <!-- 🔹 LEFT: Welcome + Android Text -->
-    <div class="space-x-2 flex items-center  gap-4 flex-wrap font-semibold text-sm">
+<!-- 🔲 Secondary Navbar (hidden on <768px, flex on ≥768px) -->
+<div class="hidden md:flex bg-black text-white py-2">
+  <div class="container mx-auto px-4 py-1 flex justify-between items-center">
+    <!-- Left side -->
+    <div class="flex items-center space-x-2  gap-4 text-sm flex-wrap font-semibold text">
       <span>स्वदेशी इनक्रेडिबल न्यूज़ लाइट में आपका स्वागत है ।</span>
-      
       <span>Android OTT App</span>
-      <a href="#" target="_blank" title="Android App"
+       <a href="#" target="_blank" title="Android App"
          class="text-white hover:text-yellow-300 transition">
         <i class="fab fa-android text-lg"></i>
       </a>
-      <span class="hidden sm:inline-block border-l border-white pl-3">हमसे जुड़ने के लिए कॉल करें - 9999999999</span>
-    </div>
-    <!-- 🔸 RIGHT: Social Icons -->
-    <div class="flex items-center gap-7 text-white text-lg">
-      <a href="#" class="hover:text-blue-300 transition" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-      <a href="#" class="hover:text-blue-300 transition" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
-      <a href="#" class="hover:text-pink-300 transition" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
-      <a href="#" class="hover:text-red-300 transition" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+      <span>हमसे जुड़ने के लिए कॉल करें – 9999999999</span>
     </div>
 
+    <!-- Right side social icons -->
+    <div class="flex items-center space-x-4 gap-6 text-lg">
+      <a href="#" class="hover:text-blue-400"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" class="hover:text-blue-300"><i class="fab fa-twitter"></i></a>
+      <a href="#" class="hover:text-pink-300"><i class="fab fa-instagram"></i></a>
+      <a href="#" class="hover:text-red-500"><i class="fab fa-youtube"></i></a>
+    </div>
   </div>
 </div>
+
 
 
                                                <!-- ............ -->
@@ -51,7 +51,7 @@
       <img src="{% static 'logo3.png' %}" alt="SI News Lite Logo" class="h-28 object-contain" />
 
       <!-- Ad right -->
-      <img src="{% static 'sinewsadd.jpg' %}" alt="Advertisement" class="h-20 object-contain" />
+      <img src="{% static 'sinewsadd.jpg' %}" alt="Advertisement" class="hidden md:flex h-20 object-contain" />
     </div>
   </div>
 
@@ -61,11 +61,10 @@
   <header class="sticky top-0 z-50 bg-white text-black">
     <div class="container mx-auto px-4 py-6 flex items-center space-x-6">
       <!-- Mobile toggle -->
-      <button id="nav-toggle" class="lg:hidden text-black focus:outline-none">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </button>
+      <button id="nav-toggle" class="lg:hidden p-2 focus:outline-none">
+  <i class="fas fa-bars text-2xl"></i>
+</button>
+
 
       <!-- Desktop links -->
       <nav id="nav-menu"
@@ -96,11 +95,12 @@
 
 <!-- Breaking_news -->
 {% if breaking_news %}
-<div class="w-full bg-white shadow border-t border-b border-gray-200 flex items-center">
+<div class="container mx-auto px-2 w-full bg-white shadow border-t border-b border-gray-200 flex items-center">
     <div class="flex items-center ml-4">
-         <span class="text-red-600 dark:text-sky-400 px-4 py-6  font-bold gap-2 uppercase flex items-center text-sm">
-              Headlines <i class="fa fa-bolt px-"></i>
+         <span class="hidden md:flex text-red-600 dark:text-sky-400 px-4 py-6  font-bold gap-2 uppercase flex items-center text-sm">
+              Headlines 
         </span>
+    <span class="text-red-600">    <i class="fa fa-bolt px-2 "></i> </span> 
     </div>
 
     <div class="overflow-hidden whitespace-nowrap flex-1 px-4">
