@@ -44,6 +44,13 @@
                                                <!-- ............ -->
 
 
+<!-- hamburger button for toggling in mobile view -->
+
+<button id="mobile-menu-button" class="lg:hidden p-4 focus:outline-none">
+  <i class="fas fa-bars text-2xl"></i>
+</button>
+
+
   <!-- 1️⃣ Logo & Ad at the very top -->
   <div class="bg-white py-2 shadow-sm">
     <div class="container mx-auto px-2 flex items-center justify-between">
@@ -57,13 +64,36 @@
 
                                    <!-- ............ -->
 
-  <!-- 3️⃣ Main Navbar (sticky, so it scrolls off after secondary) -->
+  
+    
+
+<!-- 📱 Mobile Menu (hidden by default, shown on toggle) -->
+<nav id="mobile-nav-menu" class="lg:hidden hidden flex-col px-4 py-4 space-y-2 bg-white shadow text-black font-semibold transition-all duration-300 transform opacity-0">
+
+  <a href="{% url 'news:frontpage' %}" class="block py-2 px-3 hover:bg-gray-100 rounded">Home</a>
+  <a href="{% url 'news:live_category' 'business' %}" class="block py-2 px-3 hover:bg-gray-100 rounded">Business</a>
+  <a href="{% url 'news:live_category' 'politics' %}" class="block py-2 px-3 hover:bg-gray-100 rounded">Politics</a>
+  <a href="{% url 'news:live_category' 'entertainment' %}" class="block py-2 px-3 hover:bg-gray-100 rounded">Entertainment</a>
+  <a href="{% url 'news:live_category' 'health' %}" class="block py-2 px-3 hover:bg-gray-100 rounded">Health</a>
+  <a href="{% url 'news:live_category' 'science' %}" class="block py-2 px-3 hover:bg-gray-100 rounded">Science</a>
+  <a href="{% url 'news:live_category' 'sports' %}" class="block py-2 px-3 hover:bg-gray-100 rounded">Sports</a>
+  <a href="{% url 'news:live_category' 'technology' %}" class="block py-2 px-3 hover:bg-gray-100 rounded">Technology</a>
+  <a href="{% url 'news:register' %}" class="block py-2 px-3 hover:bg-gray-100 rounded">Registration</a>
+  <form action="{% url 'news:search' %}" method="get" class="flex items-center space-x-2 px-3">
+    <input type="text" name="q" placeholder="Search…" value="{{ request.GET.q|default:'' }}"
+      class="px-3 py-1 rounded border w-full text-black" />
+    <button type="submit" class="text-black hover:text-red-600">
+      <i class="fas fa-search"></i>
+    </button>
+  </form>
+</nav>
+
+  
   <header class="sticky top-0 z-50 bg-white text-black">
-    <div class="container mx-auto px-4 py-6 flex items-center space-x-6">
+    <div class="container mx-auto px-4 py-6 flex items-center  space-x-2">
       <!-- Mobile toggle -->
-      <button id="nav-toggle" class="lg:hidden p-2 focus:outline-none">
-  <i class="fas fa-bars text-2xl"></i>
-</button>
+     
+
 
 
       <!-- Desktop links -->
@@ -90,6 +120,9 @@
         </form>
       </nav>
 
+      
+
+
     </div>
   </header>
 
@@ -106,7 +139,7 @@
     <div class="overflow-hidden whitespace-nowrap flex-1 px-4">
         <marquee behavior="scroll" scrollamount="4" class="text-black font-semibold py-2">
             {% for article in breaking_news %}
-                {{ article.title }}{% if not forloop.last %}, {% endif %}
+                {{ article.title }}{% if not forloop.last %} | {% endif %}
             {% endfor %}
         </marquee>
     </div>
@@ -165,8 +198,8 @@
         <a href="#" target="_blank" class="hover:text-red-400">Sports</a>
         <a href="#" target="_blank" class="hover:text-red-400">Technology</a>
         <a href="#" target="_blank" class="hover:text-red-400">E-Paper</a>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLScFZtDMhDt-NIB7C9qyV3eOzcRHPOPxFcEd-6cyz05xBGEtKA/viewform" target="_blank" class="hover:text-red-400">Form</a>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSf3Ny_XKshGCa91SawcVzv43DkMaBHUny66gtenaww76vbm8w/viewform?pli=1" target="_blank" class="hover:text-red-400">Joining Form</a>
+        <a href="#" target="_blank" class="hover:text-red-400">Form</a>
+        <a href="#" target="_blank" class="hover:text-red-400">Joining Form</a>
       </div>
     </div>
 
@@ -201,11 +234,46 @@
 
 
   <!-- Mobile nav toggle script -->
-  <script>
-    document.getElementById("nav-toggle").addEventListener("click", () => {
-      document.getElementById("nav-menu").classList.toggle("hidden");
+<script>
+  const toggleBtn = document.getElementById("mobile-menu-button"); // 👈 match actual button ID
+  const mobileMenu = document.getElementById("mobile-nav-menu");   // 👈 match actual nav ID
+
+  // Toggle menu on button click
+  toggleBtn.addEventListener("click", function (e) {
+    e.stopPropagation(); // prevent click bubbling
+    mobileMenu.classList.toggle("hidden");
+    mobileMenu.classList.toggle("opacity-0");
+    // document.body.classList.toggle("overflow-hidden");
+
+  });
+
+  // Hide when clicking outside
+  window.addEventListener("click", function (event) {
+    if (!mobileMenu.classList.contains("hidden")) {
+      const clickedInsideMenu = mobileMenu.contains(event.target);
+      const clickedToggle = toggleBtn.contains(event.target);
+      if (!clickedInsideMenu && !clickedToggle) {
+        mobileMenu.classList.add("hidden");
+        mobileMenu.classList.add("opacity-0");
+        //  document.body.classList.remove("overflow-hidden");
+        
+
+      }
+    }
+  });
+
+  // Auto-close on menu link click
+  mobileMenu.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+      mobileMenu.classList.add("hidden");
+      mobileMenu.classList.add("opacity-0");
+     
     });
-  </script>
+  });
+</script>
+
+
+
 
   {% block extra_js %}{% endblock %}
 

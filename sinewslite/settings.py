@@ -103,8 +103,8 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 # News API Key
-NEWS_API_KEY = os.environ.get('NEWS_API_KEY')
-# NEWS_API_KEY = ''
+# NEWS_API_KEY = os.environ.get('NEWS_API_KEY')
+NEWS_API_KEY = ''
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
