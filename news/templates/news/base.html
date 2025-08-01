@@ -46,13 +46,22 @@
 
 <!-- hamburger button for toggling in mobile view -->
 
-<button id="mobile-menu-button" class="lg:hidden p-4 focus:outline-none">
+
+
+
+ <!-- 🧲 Sticky Logo for Mobile (hidden on lg and above) -->
+<div class="sticky top-0 z-50 bg-white shadow lg:hidden">
+  <button id="mobile-menu-button" class=" lg:hidden p-4 focus:outline-none">
   <i class="fas fa-bars text-2xl"></i>
 </button>
+  <div class="flex justify-center items-center py-2">
+    <img src="{% static 'logo3.png' %}" alt="SI News Lite Logo" class="h-24 object-contain" />
+  </div>
+</div>
 
+<!-- 🖥️ Logo + Ad for Desktop (shown only on lg and above) -->
 
-  <!-- 1️⃣ Logo & Ad at the very top -->
-  <div class="bg-white py-2 shadow-sm">
+<div class="hidden lg:flex justify-between items-center bg-white py-2 shadow-sm">
     <div class="container mx-auto px-2 flex items-center justify-between">
       <!-- Logo left -->
       <img src="{% static 'logo3.png' %}" alt="SI News Lite Logo" class="h-28 object-contain" />
@@ -89,9 +98,9 @@
 </nav>
 
   
-  <header class="sticky top-0 z-50 bg-white text-black">
+  <header class="hidden lg:flex sticky top-0 z-50 bg-white text-black ">
     <div class="container mx-auto px-4 py-6 flex items-center  space-x-2">
-      <!-- Mobile toggle -->
+      
      
 
 
@@ -128,7 +137,7 @@
 
 <!-- Breaking_news -->
 {% if breaking_news %}
-<div class="container mx-auto px-2 w-full bg-white shadow border-t border-b border-gray-200 flex items-center">
+<div class="container mx-auto mt-6 px-2 py-2  bg-white shadow border-t border-b border-gray-200 flex items-center">
     <div class="flex items-center ml-4">
          <span class="hidden md:flex text-red-600 dark:text-sky-400 px-4 py-6  font-bold gap-2 uppercase flex items-center text-sm">
               Headlines 
