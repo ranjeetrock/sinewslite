@@ -55,7 +55,7 @@
   <i class="fas fa-bars text-2xl"></i>
 </button>
   <div class="flex justify-center items-center py-2">
-    <img src="{% static 'logo3.png' %}" alt="SI News Lite Logo" class="h-24 object-contain" />
+    <img src="{% static 'logo3.png' %}" alt="SI News Lite Logo" class="h-20 object-contain" />
   </div>
 </div>
 
@@ -146,7 +146,7 @@
     </div>
 
     <div class="overflow-hidden whitespace-nowrap flex-1 px-4">
-        <marquee behavior="scroll" scrollamount="4" class="text-black font-semibold py-2">
+        <marquee behavior="scroll" scrollamount="5" class="text-black font-semibold py-2 hover:text-red-600 transition">
             {% for article in breaking_news %}
                 {{ article.title }}{% if not forloop.last %} | {% endif %}
             {% endfor %}
