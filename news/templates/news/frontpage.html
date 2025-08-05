@@ -2,15 +2,46 @@
 {% load static %}
 
 {% block content %}
-<div class="container mx-auto px-4 py-6">
-  <h2 class="text-2xl text-center font-bold mb-6">Latest News</h2>
-  <div id="articles-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    {% include "news/_article_cards.html" with page_obj=page_obj %}
+<div class="container mx-auto px-4 py-6 flex flex-col lg:flex-row gap-6 bg-gray-400 rounded shadow">
+  
+  <!-- Main Content Area -->
+  <div class="flex-1">
+    <h2 class="text-2xl text-center font-bold mb-6 bg-white rounded shadow">Latest News</h2>
+
+    <!-- Full-width First Article -->
+    {% if page_obj|length > 0 %}
+      <div class="mb-6">
+        {% with item=page_obj.0 %}
+          {% include "news/_article_cards.html" %}
+        {% endwith %}
+      </div>
+    {% endif %}
+
+    
+    <!-- 2x2 Grid for Articles 2-5 -->
+       <h2 class="text-2xl  font-bold mb-6 bg-white rounded shadow">Business</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+      
+      {% for item in page_obj|slice:"1:5" %}
+        {% include "news/_article_cards.html" %}
+      {% endfor %}
+    </div>
+
+    <!-- 3-column Grid for Articles 6+ -->
+     <h2 class="text-2xl  font-bold mb-6 bg-white rounded shadow">Politics</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {% for item in page_obj|slice:"5:" %}
+        {% include "news/_article_cards.html" %}
+      {% endfor %}
+    </div>
+
   </div>
+
+  <!-- Sidebar -->
+  {% include "news/_sidebar.html" %}
+
 </div>
 {% endblock %}
-
-
 
 
 {% block loading_spinner %}
@@ -20,7 +51,7 @@
 {% endblock %}
 
 {% block extra_js %}
-<script>
+<!-- <script>
 let page = 2, loading = false, hasNext = true;
 
 window.addEventListener('scroll', () => {
@@ -47,5 +78,5 @@ window.addEventListener('scroll', () => {
     });
   }
 });
-</script>
+</script> -->
 {% endblock %}
