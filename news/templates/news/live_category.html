@@ -2,12 +2,14 @@
 {% load static %}
 
 {% block content %}
+<div class="container mx-auto px-4 py-6 flex flex-col lg:flex-row gap-6 bg-white rounded shadow">
 
-<div class="container mx-auto px-4 py-6 flex flex-col lg:flex-row gap-6 bg-gray-400 rounded shadow">
   
   <!-- Main Content Area -->
-  <div class="flex-1">
-    <h2 class="text-2xl text-center font-bold mb-6 bg-gray-400  bg-white rounded shadow">{{ category|title }}</h2>
+  
+  <div class="basis-full lg:basis-[65%]">
+
+    <h2 class="text-2xl text-center font-bold mb-6 bg-white rounded shadow">{{ category|title }}</h2>
 
     <!-- Full-width First Article -->
     {% if page_obj|length > 0 %}
@@ -20,7 +22,7 @@
 
     
     <!-- 2x2 Grid for Articles 2-5 -->
-        <h2 class="text-2xl  font-bold mb-6 bg-gray-400  bg-white rounded shadow">{{ category|title }}</h2>
+       <h2 class="text-2xl  font-bold mb-6 bg-white rounded shadow">Business</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
       
       {% for item in page_obj|slice:"1:5" %}
@@ -29,7 +31,6 @@
     </div>
 
     <!-- 3-column Grid for Articles 6+ -->
-     
      <h2 class="text-2xl  font-bold mb-6 bg-white rounded shadow">Politics</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {% for item in page_obj|slice:"5:" %}
@@ -39,7 +40,10 @@
 
   </div>
 
-  
+  <!-- Sidebar -->
+ <aside class="basis-full lg:basis-[35%]">
+     {% include "news/_sidebar.html" %}
+   </aside>
 
 </div>
 {% endblock %}

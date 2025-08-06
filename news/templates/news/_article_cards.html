@@ -1,6 +1,6 @@
 <div class="bg-white shadow rounded overflow-hidden">
   {% if item.urlToImage %}
-    <img src="{{ item.urlToImage }}" alt="{{ item.title }}" class="w-full h-53 object-cover" />
+    <img src="{{ item.urlToImage }}" alt="{{ item.title }}" class="w-full h-45 object-cover" />
   {% endif %}
   <div class="p-4">
     <h3 class="font-bold text-lg mb-1">{{ item.title }}</h3>
@@ -11,7 +11,9 @@
       Published on {{ item.published_at_ist }}
     </p>
     <p class="text-sm text-gray-800">{{ item.description|default:"No description." }}</p>
-    <a href="{{ item.url }}" target="_blank" class="text-blue-600 hover:underline text-sm mt-2 inline-block">
+    <a href="{{ item.url }}" target="_blank" class="inline-block  text-center
+                border border-red-600 text-gray-100 font-semibold text-sm
+                px-2 py-2 my-4 rounded  transition">
       Read full article →
     </a>
   </div>
