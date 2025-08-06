@@ -23,7 +23,13 @@
 
     
     <!-- 2x2 Grid for Articles 2-5 -->
-       <h2 class="text-2xl  font-bold mb-6 bg-white rounded shadow">Business</h2>
+       <h2 class="text-2xl font-bold mb-6 bg-white rounded shadow p-4 flex justify-between items-center">
+  <span>Business</span>
+  <div class="space-x-2">
+    <a href="#"><button id="politics-prev" class="px-3 py-1 bg-white rounded shadow hover:bg-red-700 ">&lsaquo;</button>
+    <button id="politics-next" class="px-3 py-1 bg-white rounded shadow hover:bg-red-700 ">&rsaquo;</button></a>
+  </div>
+</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
       
       {% for item in page_obj|slice:"1:5" %}
@@ -32,7 +38,13 @@
     </div>
 
     <!-- 3-column Grid for Articles 6+ -->
-     <h2 class="text-2xl  font-bold mb-6 bg-white rounded shadow">Politics</h2>
+     <h2 class="text-2xl font-bold mb-6 bg-white rounded shadow p-4 flex justify-between items-center">
+  <span>Politics</span>
+  <div class="space-x-2">
+    <a href="#"><button id="politics-prev" class="px-3 py-1 bg-white rounded shadow hover:bg-red-700 ">&lsaquo;</button>
+    <button id="politics-next" class="px-3 py-1 bg-white rounded shadow hover:bg-red-700 ">&rsaquo;</button></a>
+  </div>
+</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {% for item in page_obj|slice:"5:" %}
         {% include "news/_article_cards.html" %}
