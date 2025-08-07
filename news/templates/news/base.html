@@ -15,6 +15,8 @@
 
 <body class="font-sans-mono pt-0">
  
+
+ 
 <!-- 🔲 Secondary Navbar (hidden on <768px, flex on ≥768px) -->
 <div class="hidden md:flex bg-black text-white py-2">
   <div class="container mx-auto px-4 py-1 flex justify-between items-center">
@@ -44,20 +46,58 @@
                                                <!-- ............ -->
 
 
-<!-- hamburger button for toggling in mobile view -->
-
-
-
-
- <!-- 🧲 Sticky Logo for Mobile (hidden on lg and above) -->
+<!-- Sticky Logo + Hamburger (always on top) -->
 <div class="sticky top-0 z-50 bg-white shadow lg:hidden">
-  <button id="mobile-menu-button" class=" lg:hidden p-4 focus:outline-none">
-  <i class="fas fa-bars text-2xl"></i>
-</button>
+  <!-- hamburger button for toggling in mobile view -->
+  <button id="mobile-menu-open" class="p-4 focus:outline-none">
+    <i class="fas fa-bars text-2xl"></i>
+  </button>
   <div class="flex justify-center items-center py-2">
-    <img src="{% static 'logo3.png' %}" alt="SI News Lite Logo" class="h-20 object-contain" />
+    <img src="{% static 'logo3.png' %}" class="h-20 object-contain" />
   </div>
+  <!-- Overlay Container (under the header) -->
+<div id="mobile-menu-overlay" class="fixed inset-0  top-0 z-40 hidden">
+
+  <!-- Backdrop -->
+  <div id="mobile-menu-backdrop"
+       class="absolute inset-0 opacity-50">
+  </div>
+
+  <!-- Mobile Menu panel -->
+  <nav id="mobile-nav-menu"
+       class="absolute top-0 right-0 bottom-0 w-3/4 max-w-xs
+              bg-white shadow-lg p-4 overflow-y-auto">
+    <!-- Close button -->
+    <button id="mobile-menu-close"
+            class="mb-4 text-gray-700 hover:text-red-600">
+     <i class="fas fa-bars text-2xl"></i>
+    </button>
+
+    <!-- Menu links -->
+    <a href="{% url 'news:frontpage' %}" class="block py-2 px-3 hover:bg-gray-100 rounded font-bold text-red-600">Home</a>
+    <a href="{% url 'news:live_category' 'business' %}" class="block py-2 px-3 hover:bg-gray-100 rounded font-bold text-red-600">Business</a>
+    <a href="{% url 'news:live_category' 'politics' %}" class="block py-2 px-3 hover:bg-gray-100 rounded font-bold text-red-600">Politics</a>
+   <a href="{% url 'news:live_category' 'entertainment' %}" class="block py-2 px-3 hover:bg-gray-100 rounded font-bold text-red-600">Entertainment</a>
+   <a href="{% url 'news:live_category' 'health' %}" class="block py-2 px-3 hover:bg-gray-100 rounded font-bold text-red-600">Health</a>
+   <a href="{% url 'news:live_category' 'science' %}" class="block py-2 px-3 hover:bg-gray-100 rounded font-bold text-red-600">Science</a>
+   <a href="{% url 'news:live_category' 'sports' %}" class="block py-2 px-3 hover:bg-gray-100 rounded font-bold text-red-600">Sports</a>
+   <a href="{% url 'news:live_category' 'technology' %}" class="block py-2 px-3 hover:bg-gray-100 rounded font-bold text-red-600">Technology</a>
+   <a href="{% url 'news:register' %}" class="block py-2 px-3 hover:bg-gray-100 rounded font-bold text-red-600">Registration</a>
+  
+    <form action="{% url 'news:search' %}" method="get" class="mt-4 flex items-center space-x-2 px-3">
+      <input type="text" name="q" placeholder="Search…" value="{{ request.GET.q|default:'' }}"
+             class="flex-1 px-3 py-1 rounded border text-black" />
+      <button type="submit" class="text-black hover:text-red-600">
+        <i class="fas fa-search"></i>
+      </button>
+    </form>
+  </nav>
+  
 </div>
+</div>
+
+
+
 
 <!-- 🖥️ Logo + Ad for Desktop (shown only on lg and above) -->
 
@@ -76,35 +116,13 @@
   
     
 
-<!-- 📱 Mobile Menu (hidden by default, shown on toggle) -->
-<nav id="mobile-nav-menu" class="lg:hidden hidden flex-col px-4 py-4 space-y-2 bg-white shadow text-black font-semibold transition-all duration-300 transform opacity-0">
 
-  <a href="{% url 'news:frontpage' %}" class="block py-2 px-3 hover:bg-gray-100 rounded">Home</a>
-  <a href="{% url 'news:live_category' 'business' %}" class="block py-2 px-3 hover:bg-gray-100 rounded">Business</a>
-  <a href="{% url 'news:live_category' 'politics' %}" class="block py-2 px-3 hover:bg-gray-100 rounded">Politics</a>
-  <a href="{% url 'news:live_category' 'entertainment' %}" class="block py-2 px-3 hover:bg-gray-100 rounded">Entertainment</a>
-  <a href="{% url 'news:live_category' 'health' %}" class="block py-2 px-3 hover:bg-gray-100 rounded">Health</a>
-  <a href="{% url 'news:live_category' 'science' %}" class="block py-2 px-3 hover:bg-gray-100 rounded">Science</a>
-  <a href="{% url 'news:live_category' 'sports' %}" class="block py-2 px-3 hover:bg-gray-100 rounded">Sports</a>
-  <a href="{% url 'news:live_category' 'technology' %}" class="block py-2 px-3 hover:bg-gray-100 rounded">Technology</a>
-  <a href="{% url 'news:register' %}" class="block py-2 px-3 hover:bg-gray-100 rounded">Registration</a>
-  <form action="{% url 'news:search' %}" method="get" class="flex items-center space-x-2 px-3">
-    <input type="text" name="q" placeholder="Search…" value="{{ request.GET.q|default:'' }}"
-      class="px-3 py-1 rounded border w-full text-black" />
-    <button type="submit" class="text-black hover:text-red-600">
-      <i class="fas fa-search"></i>
-    </button>
-  </form>
-</nav>
 
   
   <header class="hidden lg:flex sticky top-0 z-50 bg-white text-black ">
     <div class="container mx-auto px-4 py-6 flex items-center  space-x-2">
       
      
-
-
-
       <!-- Desktop links -->
       <nav id="nav-menu"
         class="hidden lg:flex flex-col lg:flex-row lg:items-center gap-4 space-y-2 lg:space-y-0 lg:space-x-4 font-semibold tracking-wide">
@@ -128,12 +146,11 @@
           </button>
         </form>
       </nav>
-
       
-
-
     </div>
   </header>
+
+   
 
 <!-- Breaking_news -->
 {% if breaking_news %}
@@ -171,7 +188,7 @@
 
 
                                          <!-- 🔁 Page-specific spinner -->
-  <!-- {% block loading_spinner %}{% endblock %} -->
+  {% block loading_spinner %}{% endblock %}
 
 
   <!-- 5️⃣ Footer -->
@@ -243,7 +260,7 @@
 
 
   <!-- Mobile nav toggle script -->
-<script>
+<!-- <script>
   const toggleBtn = document.getElementById("mobile-menu-button"); // 👈 match actual button ID
   const mobileMenu = document.getElementById("mobile-nav-menu");   // 👈 match actual nav ID
 
@@ -279,6 +296,33 @@
      
     });
   });
+</script> -->
+
+
+
+<script>
+  const overlay = document.getElementById('mobile-menu-overlay');
+  const openBtn = document.getElementById('mobile-menu-open');
+  const closeBtn = document.getElementById('mobile-menu-close');
+
+  openBtn.addEventListener('click', () => {
+    overlay.classList.remove('hidden');
+    // overlay.classList.add('z-60');
+    document.body.classList.add('overflow-hidden');
+  });
+
+  closeBtn.addEventListener('click', () => {
+    overlay.classList.add('hidden');
+    // overlay.classList.remove('z-60'); 
+    document.body.classList.remove('overflow-hidden');
+  });
+
+  // Also close if backdrop is clicked
+  document.getElementById('mobile-menu-backdrop')
+          .addEventListener('click', () => {
+    overlay.classList.add('hidden');
+    document.body.classList.remove('overflow-hidden');
+  });
 </script>
 
 
@@ -287,8 +331,6 @@
   {% block extra_js %}{% endblock %}
 
  
-
-
 </body>
 
 </html>

@@ -45,11 +45,14 @@
     <button id="politics-next" class="px-3 py-1 bg-white rounded shadow hover:bg-red-700 ">&rsaquo;</button></a>
   </div>
 </h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {% for item in page_obj|slice:"5:" %}
-        {% include "news/_article_cards.html" %}
-      {% endfor %}
-    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+  {% for item in page_obj %}
+     {% include "news/_article_cards.html" %}
+  {% endfor %}
+</div>
+<!-- Pagination Links -->
+
+{% include "news/pagination.html" %}
 
   </div>
 
