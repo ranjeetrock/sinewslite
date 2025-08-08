@@ -46,55 +46,74 @@
                                                <!-- ............ -->
 
 
-<!-- Sticky Logo + Hamburger (always on top) -->
-<div class="sticky top-0 z-50 bg-white shadow lg:hidden">
-  <!-- hamburger button for toggling in mobile view -->
-  <button id="mobile-menu-open" class="p-4 focus:outline-none">
-    <i class="fas fa-bars text-2xl"></i>
-  </button>
-  <div class="flex justify-center items-center py-2">
-    <img src="{% static 'logo3.png' %}" class="h-20 object-contain" />
-  </div>
-  <!-- Overlay Container (under the header) -->
-<div id="mobile-menu-overlay" class="fixed inset-0  top-0 z-40 hidden">
 
-  <!-- Backdrop -->
-  <div id="mobile-menu-backdrop"
-       class="absolute inset-0 opacity-50">
-  </div>
-
-  <!-- Mobile Menu panel -->
-  <nav id="mobile-nav-menu"
-       class="absolute top-0 right-0 bottom-0 w-3/4 max-w-xs
-              bg-white shadow-lg p-4 overflow-y-auto">
-    <!-- Close button -->
-    <button id="mobile-menu-close"
-            class="mb-4 text-gray-700 hover:text-red-600">
-     <i class="fas fa-bars text-2xl"></i>
-    </button>
-
-    <!-- Menu links -->
-    <a href="{% url 'news:frontpage' %}" class="block py-2 px-3 hover:bg-gray-100 rounded font-bold text-red-600">Home</a>
-    <a href="{% url 'news:live_category' 'business' %}" class="block py-2 px-3 hover:bg-gray-100 rounded font-bold text-red-600">Business</a>
-    <a href="{% url 'news:live_category' 'politics' %}" class="block py-2 px-3 hover:bg-gray-100 rounded font-bold text-red-600">Politics</a>
-   <a href="{% url 'news:live_category' 'entertainment' %}" class="block py-2 px-3 hover:bg-gray-100 rounded font-bold text-red-600">Entertainment</a>
-   <a href="{% url 'news:live_category' 'health' %}" class="block py-2 px-3 hover:bg-gray-100 rounded font-bold text-red-600">Health</a>
-   <a href="{% url 'news:live_category' 'science' %}" class="block py-2 px-3 hover:bg-gray-100 rounded font-bold text-red-600">Science</a>
-   <a href="{% url 'news:live_category' 'sports' %}" class="block py-2 px-3 hover:bg-gray-100 rounded font-bold text-red-600">Sports</a>
-   <a href="{% url 'news:live_category' 'technology' %}" class="block py-2 px-3 hover:bg-gray-100 rounded font-bold text-red-600">Technology</a>
-   <a href="{% url 'news:register' %}" class="block py-2 px-3 hover:bg-gray-100 rounded font-bold text-red-600">Registration</a>
-  
-    <form action="{% url 'news:search' %}" method="get" class="mt-4 flex items-center space-x-2 px-3">
-      <input type="text" name="q" placeholder="Search…" value="{{ request.GET.q|default:'' }}"
-             class="flex-1 px-3 py-1 rounded border text-black" />
-      <button type="submit" class="text-black hover:text-red-600">
-        <i class="fas fa-search"></i>
+ <!-- Sticky Logo + Hamburger (always on top for mobile) -->
+  <div class="sticky top-0 z-50 bg-white shadow lg:hidden">
+    
+      <!-- hamburger button for toggling in mobile view -->
+      <button id="mobile-menu-open" aria-controls="mobile-menu-overlay" aria-expanded="false"
+        class="p-4 focus:outline-none" aria-label="Open menu">
+        <i class="fas fa-bars text-2xl"></i>
       </button>
-    </form>
-  </nav>
-  
-</div>
-</div>
+
+      <div class="flex-1 flex justify-center">
+        <img src="{% static 'logo3.png' %}" class="h-20 object-contain" alt="SI News Lite logo" />
+      </div>
+
+      <!-- empty placeholder to keep centered logo -->
+      <div class="w-12"></div>
+    
+
+    <!-- Overlay Container (hidden by default) -->
+    <div id="mobile-menu-overlay" class="fixed inset-0 z-40 hidden" aria-hidden="true">
+
+      <!-- Backdrop -->
+      <div id="mobile-menu-backdrop"
+           class="absolute inset-0 bg-black/50"
+           aria-hidden="true"></div>
+
+      <!-- Mobile Menu panel (left drawer) -->
+      <nav id="mobile-nav-menu"
+           class="absolute top-0 left-0 bottom-0 w-4/5 max-w-xs
+                  bg-white shadow-lg p-4 overflow-y-auto transform translate-x-0"
+           role="dialog" aria-modal="true" aria-label="Mobile menu">
+
+        <!-- Header row inside drawer -->
+        <div class="flex items-center justify-between mb-4">
+          <div class="font-semibold text-lg">Menu</div>
+          <button id="mobile-menu-close" aria-label="Close menu" class="text-gray-700 hover:text-red-600">
+            <i class="fas fa-times text-2xl"></i>
+          </button>
+        </div>
+
+        <!-- === MOBILE NAV: only this block included (copied from your desktop nav) === -->
+        <nav id="nav-menu-mobile"
+             class="flex flex-col gap-2 font-semibold tracking-wide">
+          <a href="{% url 'news:frontpage' %}" class="hover:text-red-600 transition block py-2 px-3 rounded">Home</a>
+          <a href="{% url 'news:live_category' 'business' %}" class="hover:text-red-600 transition block py-2 px-3 rounded">Business</a>
+          <a href="{% url 'news:live_category' 'politics' %}" class="hover:text-red-600 transition block py-2 px-3 rounded">Politics</a>
+          <a href="{% url 'news:live_category' 'entertainment' %}" class="hover:text-red-600 transition block py-2 px-3 rounded">Entertainment</a>
+          <a href="{% url 'news:live_category' 'health' %}" class="hover:text-red-600 transition block py-2 px-3 rounded">Health</a>
+          <a href="{% url 'news:live_category' 'science' %}" class="hover:text-red-600 transition block py-2 px-3 rounded">Science</a>
+          <a href="{% url 'news:live_category' 'sports' %}" class="hover:text-red-600 transition block py-2 px-3 rounded">Sports</a>
+          <a href="{% url 'news:live_category' 'technology' %}" class="hover:text-red-600 transition block py-2 px-3 rounded">Technology</a>
+          <a href="{% url 'news:register' %}" class="hover:text-red-600 transition block py-2 px-3 rounded">Registration</a>
+
+          <!-- Search form moved to the end (same as your desktop form) -->
+          <form action="{% url 'news:search' %}" method="get" class="flex items-center space-x-2 mt-3 px-1">
+            <input type="text" name="q" placeholder="Search…" value="{{ request.GET.q|default:'' }}"
+                   class="px-3 py-1 rounded text-black w-full" />
+            <button type="submit"
+                    class="text-black hover:text-red-600 transition px-2 py-1">
+              <i class="fas fa-search"></i>
+            </button>
+          </form>
+        </nav>
+        <!-- === end included nav block === -->
+
+      </nav>
+    </div>
+  </div>
 
 
 
@@ -259,72 +278,51 @@
 </footer>
 
 
-  <!-- Mobile nav toggle script -->
-<!-- <script>
-  const toggleBtn = document.getElementById("mobile-menu-button"); // 👈 match actual button ID
-  const mobileMenu = document.getElementById("mobile-nav-menu");   // 👈 match actual nav ID
+<!-- Mobile nav toggle script (keeps simple behaviors + auto-close on link click) -->
+  <script>
+    (function () {
+      const overlay = document.getElementById('mobile-menu-overlay');
+      const openBtn = document.getElementById('mobile-menu-open');
+      const closeBtn = document.getElementById('mobile-menu-close');
+      const backdrop = document.getElementById('mobile-menu-backdrop');
 
-  // Toggle menu on button click
-  toggleBtn.addEventListener("click", function (e) {
-    e.stopPropagation(); // prevent click bubbling
-    mobileMenu.classList.toggle("hidden");
-    mobileMenu.classList.toggle("opacity-0");
-    // document.body.classList.toggle("overflow-hidden");
-
-  });
-
-  // Hide when clicking outside
-  window.addEventListener("click", function (event) {
-    if (!mobileMenu.classList.contains("hidden")) {
-      const clickedInsideMenu = mobileMenu.contains(event.target);
-      const clickedToggle = toggleBtn.contains(event.target);
-      if (!clickedInsideMenu && !clickedToggle) {
-        mobileMenu.classList.add("hidden");
-        mobileMenu.classList.add("opacity-0");
-        //  document.body.classList.remove("overflow-hidden");
-        
-
+      function openMenu() {
+        overlay.classList.remove('hidden');
+        overlay.setAttribute('aria-hidden', 'false');
+        openBtn.setAttribute('aria-expanded', 'true');
+        document.body.classList.add('overflow-hidden');
+        // move focus into drawer
+        const firstFocusable = overlay.querySelector('button, a, input');
+        if (firstFocusable) firstFocusable.focus();
       }
-    }
-  });
 
-  // Auto-close on menu link click
-  mobileMenu.querySelectorAll("a").forEach(link => {
-    link.addEventListener("click", () => {
-      mobileMenu.classList.add("hidden");
-      mobileMenu.classList.add("opacity-0");
-     
-    });
-  });
-</script> -->
+      function closeMenu() {
+        overlay.classList.add('hidden');
+        overlay.setAttribute('aria-hidden', 'true');
+        openBtn.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('overflow-hidden');
+        openBtn.focus();
+      }
 
+      openBtn.addEventListener('click', openMenu);
+      closeBtn.addEventListener('click', closeMenu);
+      backdrop.addEventListener('click', closeMenu);
 
+      // Close on ESC
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !overlay.classList.contains('hidden')) {
+          closeMenu();
+        }
+      });
 
-<script>
-  const overlay = document.getElementById('mobile-menu-overlay');
-  const openBtn = document.getElementById('mobile-menu-open');
-  const closeBtn = document.getElementById('mobile-menu-close');
-
-  openBtn.addEventListener('click', () => {
-    overlay.classList.remove('hidden');
-    // overlay.classList.add('z-60');
-    document.body.classList.add('overflow-hidden');
-  });
-
-  closeBtn.addEventListener('click', () => {
-    overlay.classList.add('hidden');
-    // overlay.classList.remove('z-60'); 
-    document.body.classList.remove('overflow-hidden');
-  });
-
-  // Also close if backdrop is clicked
-  document.getElementById('mobile-menu-backdrop')
-          .addEventListener('click', () => {
-    overlay.classList.add('hidden');
-    document.body.classList.remove('overflow-hidden');
-  });
-</script>
-
+      // Auto-close on nav link click
+      overlay.querySelectorAll('a[href]').forEach(link => {
+        link.addEventListener('click', () => {
+          closeMenu();
+        });
+      });
+    })();
+  </script>
 
 
 
