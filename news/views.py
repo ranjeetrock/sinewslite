@@ -214,7 +214,7 @@ def search_view(request):
         "query": query,
         "page_obj": page_obj,
         "live_error": error,
-        "now": datetime.now()
+        "now": datetime.now(),
     })
 
 

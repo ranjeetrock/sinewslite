@@ -2,15 +2,33 @@
 {% load static %}
 
 {% block content %}
-<div class="container mx-auto px-4 py-6">
-  <h2 class="text-2xl font-bold mb-4"> {{ query }}</h2>
-  <div id="articles-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    {% include "news/_article_cards.html" with page_obj=page_obj %}
+<div class="container mx-auto px-4 py-6 flex flex-col lg:flex-row gap-6 bg-white rounded shadow overflow-y-scroll">
+
+  <!-- Main Content Area -->
+  
+  <div class="basis-full lg:basis-[65%]">
+    
+    
+    <!-- 3-column Grid for Articles 6+ -->
+     <h2 class="text-2xl font-bold mb-6 bg-white rounded shadow p-4 flex justify-between items-center">
+ {{ query }} </h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+  {% for item in page_obj %}
+      {% include "news/_article_cards.html" %}
+  {% endfor %}
+</div>
+
+
   </div>
+
+  <!-- Sidebar -->
+ <aside class="basis-full lg:basis-[35%]">
+     {% include "news/_sidebar.html" %}
+   </aside>
 </div>
 {% endblock %}
 
-{% block loading_spinner %}
+<!-- {% block loading_spinner %}
   <div id="loading" class="text-center my-4" style="display:none;">
     <img src="{% static 'loading.gif' %}" alt="Loading..." class="w-8 h-8 mx-auto">
   </div>
@@ -48,4 +66,4 @@ window.addEventListener('scroll', () => {
   }
 });
 </script>
-{% endblock %}
+{% endblock %} -->

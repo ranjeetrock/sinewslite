@@ -79,6 +79,7 @@
       The most important world news and events of the day.
     </p>
     <form class="flex mt-4">
+      {% csrf_token %}
       <input type="email" placeholder="Your email address"
              class="flex-1 text-center border border-gray-300 rounded-l  text-sm focus:outline-none focus:ring focus:border-red-500"
              required>
