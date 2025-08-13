@@ -14,12 +14,41 @@
 
     <!-- Full-width First Article -->
     {% if page_obj|length > 0 %}
-      <div class="mb-6">
-        {% with item=page_obj.0 %}
-          {% include "news/_article_cards.html" %}
-        {% endwith %}
-      </div>
-    {% endif %}
+<div class="relative w-full mb-6">
+    <!-- Carousel wrapper -->
+    <div class="relative h-15 overflow-hidden rounded-lg md:h-96" id="customCarousel">
+        {% for item in page_obj|slice:":5" %}
+        <div class="{% if forloop.first %}block{% else %}hidden{% endif %} duration-700 ease-in-out carousel-slide">
+            {% include "news/_article_cards.html" %}
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Controls -->
+  <style>
+@media (max-width: 639px) {
+  .carousel-btn {
+    display: none !important;
+  }
+}
+</style>
+
+<button type="button" class="carousel-btn absolute top-0 left-0 z-10 flex items-center justify-center h-full px-4 mx-4 mt-6 cursor-pointer group focus:outline-none" onclick="moveSlide(-1)">
+    <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 group-hover:bg-white/50">
+       <i class="fa fa-angle-right text-white"></i>
+    </span>
+</button>
+
+<button type="button" class="carousel-btn absolute top-0 right-0 z-10 flex items-center justify-center h-full px-4 mt-6 cursor-pointer group focus:outline-none" onclick="moveSlide(1)">
+    <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 group-hover:bg-white/50">
+        <i class="fa fa-angle-left text-white"></i>
+    </span>
+</button>
+
+
+</div>
+{% endif %}
+  
 
     
     <!-- 2x2 Grid for Articles 2-5 -->
@@ -32,7 +61,7 @@
 </h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
       
-      {% for item in page_obj|slice:"1:5" %}
+      {% for item in page_obj|slice:"5:9" %}
         {% include "news/_article_cards.html" %}
       {% endfor %}
     </div>
@@ -46,7 +75,7 @@
   </div>
 </h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {% for item in page_obj|slice:"5:" %}
+      {% for item in page_obj|slice:"9:" %}
         {% include "news/_article_cards.html" %}
       {% endfor %}
     </div>
@@ -62,40 +91,25 @@
 
 {% endblock %}
 
-<!-- 
-{% block loading_spinner %}
-  <div id="loading" class="text-center my-4" style="display:none;">
-    <img src="{% static 'loading.gif' %}" alt="Loading..." class="w-8 h-8 mx-auto">
-  </div>
-{% endblock %} -->
+{% block extra_js %}
 
-<!-- {% block extra_js %} -->
-<!-- <script>
-let page = 2, loading = false, hasNext = true;
+<script>
+let currentIndex = 0;
+const slides = document.querySelectorAll('#customCarousel .carousel-slide');
 
-window.addEventListener('scroll', () => {
-  if (loading || !hasNext) return;
-  if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 300) {
-    loading = true;
-    document.getElementById("loading").style.display = "block";
-
-    fetch(`?page=${page}`, {
-      headers: { "X-Requested-With": "XMLHttpRequest" }
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.html) {
-        document.getElementById("articles-grid").insertAdjacentHTML("beforeend", data.html);
-        hasNext = data.has_next;
-        page++;
-      }
-    })
-    .catch(console.error)
-    .finally(() => {
-      loading = false;
-      document.getElementById("loading").style.display = "none";
+function showSlide(index) {
+    slides.forEach((slide, i) => {
+        slide.classList.toggle('hidden', i !== index);
+        slide.classList.toggle('block', i === index);
     });
-  }
-});
-</script> -->
-<!-- {% endblock %} -->
+}
+
+function moveSlide(step) {
+    currentIndex = (currentIndex + step + slides.length) % slides.length;
+    showSlide(currentIndex);
+}
+
+// Optional: auto-slide every 5s
+setInterval(() => moveSlide(1), 5000);
+</script>
+{% endblock %}

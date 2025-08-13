@@ -224,7 +224,7 @@ from .api_utils import get_breaking_news
 
 def home(request):
     breaking_news = get_breaking_news()
-    print("Fetched News:", breaking_news)  # This will show in terminal
+    # print("Fetched News:", breaking_news)  # This will show in terminal
     return render(request, 'news/home.html', {'breaking_news': breaking_news})
 
 
@@ -232,8 +232,8 @@ def home(request):
 
 
 
-import requests
-from django.conf import settings
+# breaking news
+
 
 def get_breaking_news():
     url = 'https://newsapi.org/v2/top-headlines'
@@ -255,7 +255,7 @@ def get_breaking_news():
 
 
 
-
+# time  conveter
 
 
 def convert_utc_to_ist(utc_time_str):
