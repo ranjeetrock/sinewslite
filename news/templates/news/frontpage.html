@@ -13,14 +13,41 @@
     <h2 class="text-2xl text-center font-bold mb-6 bg-white rounded shadow">Latest News</h2>
 
     <!-- Full-width First Article -->
-    <div class="mb-6 fullwidth-carousel">
-    {% for item in page_obj|slice:":5" %}
-        <div>
+    {% if page_obj|length > 0 %}
+<div class="relative w-full mb-6">
+    <!-- Carousel wrapper -->
+    <div class="relative h-15 overflow-hidden rounded-lg md:h-96" id="customCarousel">
+        {% for item in page_obj|slice:":5" %}
+        <div class="{% if forloop.first %}block{% else %}hidden{% endif %} duration-700 ease-in-out carousel-slide">
             {% include "news/_article_cards.html" %}
         </div>
-    {% endfor %}
-</div>
+        {% endfor %}
+    </div>
 
+    <!-- Controls -->
+  <style>
+@media (max-width: 639px) {
+  .carousel-btn {
+    display: none !important;
+  }
+}
+</style>
+
+<button type="button" class="carousel-btn absolute top-0 left-0 z-10 flex items-center justify-center h-full px-4 mx-4 mt-6 cursor-pointer group focus:outline-none" onclick="moveSlide(-1)">
+    <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 group-hover:bg-white/50">
+       <i class="fa fa-angle-right text-white"></i>
+    </span>
+</button>
+
+<button type="button" class="carousel-btn absolute top-0 right-0 z-10 flex items-center justify-center h-full px-4 mt-6 cursor-pointer group focus:outline-none" onclick="moveSlide(1)">
+    <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 group-hover:bg-white/50">
+        <i class="fa fa-angle-left text-white"></i>
+    </span>
+</button>
+
+
+</div>
+{% endif %}
   
 
     
@@ -65,19 +92,24 @@
 {% endblock %}
 
 {% block extra_js %}
+
 <script>
-$(document).ready(function(){
-    $('.fullwidth-carousel').slick({
-        infinite: true,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        arrows: true,
-        prevArrow: '<button type="button" class="slick-prev"><span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 hover:bg-white/50"><i class="fa fa-angle-left text-white text-2xl"></i></span></button>',
-        nextArrow: '<button type="button" class="slick-next"><span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 hover:bg-white/50"><i class="fa fa-angle-right text-white text-2xl"></i></span></button>',
-        autoplay: true,
-        autoplaySpeed: 5000,
-        adaptiveHeight: true
+let currentIndex = 0;
+const slides = document.querySelectorAll('#customCarousel .carousel-slide');
+
+function showSlide(index) {
+    slides.forEach((slide, i) => {
+        slide.classList.toggle('hidden', i !== index);
+        slide.classList.toggle('block', i === index);
     });
-});
+}
+
+function moveSlide(step) {
+    currentIndex = (currentIndex + step + slides.length) % slides.length;
+    showSlide(currentIndex);
+}
+
+// Optional: auto-slide every 5s
+setInterval(() => moveSlide(1), 5000);
 </script>
 {% endblock %}
