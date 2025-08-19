@@ -57,7 +57,7 @@ MIDDLEWARE = [
 ]
 # Tell Whitenoise to also serve media
 WHITENOISE_ALLOW_ALL_ORIGINS = True
-WHITENOISE_ROOT = MEDIA_ROOT
+
 
 ROOT_URLCONF = 'sinewslite.urls'
 
@@ -104,7 +104,8 @@ USE_TZ = True
 # Static & Media files
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]  # ✅ points to your custom static dir (like Tailwind)
-STATIC_ROOT = BASE_DIR / "staticfiles"
+# STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 MEDIA_URL = '/media/'
