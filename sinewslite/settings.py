@@ -20,6 +20,9 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", 'unsafe-dev-key-for-local-use-only')
 # Debug mode
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
+# DEBUG = True
+
+
 # Allowed hosts
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '127.0.0.1,localhost').split(',')
 
@@ -67,6 +70,8 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.csrf',
                 'news.context_processors.breaking_news',
+                # << add this line exactly >>
+                "news.context_processors.enews_papers",
             ],
         },
     },

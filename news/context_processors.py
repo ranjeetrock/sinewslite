@@ -26,3 +26,19 @@ def breaking_news(request):
         return {
             'breaking_news': []
         }
+
+
+
+# news/context_processors.py
+from .models import ENewsPaper
+
+def enews_papers(request):
+    """
+    Return latest 5 ENewsPaper objects for sidebar.
+    Keep this file simple and single-purpose.
+    """
+    papers = ENewsPaper.objects.all().order_by('-published_on')[:5]
+    # temporary debug log that will appear in runserver console when a page renders
+    print("context processor: found", papers.count(), "papers")
+    return {"papers": papers}
+

@@ -11,7 +11,6 @@ from django.shortcuts   import render, redirect
 from django.shortcuts import render
 from .forms import PatrakaarMitraForm
 from .forms import PatrakaarMitra
-from datetime import datetime
 import pytz  # pip install pytz if not available
 
 def fetch_news(*, country="in", category=None, page_size=50):
@@ -55,11 +54,13 @@ def fetch_news(*, country="in", category=None, page_size=50):
         return [], str(e)
     
     
-
 def frontpage(request):
     articles, error = fetch_news()
     paginator = Paginator(articles, 12)
     page_number = request.GET.get("page", 1)
+
+
+   
 
     try:
         page_obj = paginator.page(page_number)
@@ -214,17 +215,17 @@ def search_view(request):
         "query": query,
         "page_obj": page_obj,
         "live_error": error,
-        "now": datetime.now(),
+        "now": datetime.now()
     })
 
-
+# Breaking News
 
 from django.shortcuts import render
 from .api_utils import get_breaking_news
 
 def home(request):
     breaking_news = get_breaking_news()
-    # print("Fetched News:", breaking_news)  # This will show in terminal
+    print("Fetched News:", breaking_news)  # This will show in terminal
     return render(request, 'news/home.html', {'breaking_news': breaking_news})
 
 
@@ -232,8 +233,8 @@ def home(request):
 
 
 
-# breaking news
-
+import requests
+from django.conf import settings
 
 def get_breaking_news():
     url = 'https://newsapi.org/v2/top-headlines'
@@ -255,7 +256,7 @@ def get_breaking_news():
 
 
 
-# time  conveter
+# time stamp
 
 
 def convert_utc_to_ist(utc_time_str):
@@ -267,4 +268,9 @@ def convert_utc_to_ist(utc_time_str):
 
 
 
+from .models import ENewsPaper
+from django.shortcuts import render
 
+def enews_page(request):
+    papers_all = ENewsPaper.objects.all()
+    return render(request, "_sidebar.html", {"papers_all": papers_all})
