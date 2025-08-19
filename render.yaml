@@ -4,15 +4,7 @@ services:
     env: python
     buildCommand: "./build.sh"
     startCommand: "gunicorn sinewslite.wsgi:application"
-
-    envVars:
-      - key: DJANGO_SETTINGS_MODULE
-        value: sinewslite.settings
-      - key: PYTHON_VERSION
-        value: 3.13.0
-
-    staticPublishPaths:
-      - path: /static
-        source: staticfiles
-      - path: /media
-        source: media
+    disk:
+      name: media
+      mountPath: /opt/render/project/src/media
+      sizeGB: 1

@@ -4,6 +4,8 @@ from . import views
 # from .views import frontpage, live_category, patrakaar_register_view  # , article_detail
 from django.contrib.auth import views as auth_views
 from .views import register_view
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 
@@ -26,7 +28,15 @@ urlpatterns = [
 
 
 
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+else:
+    from django.views.static import serve
+    from django.urls import re_path
 
+    urlpatterns += [
+        re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    ]
 
 
 
