@@ -55,6 +55,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+# Tell Whitenoise to also serve media
+WHITENOISE_ALLOW_ALL_ORIGINS = True
+WHITENOISE_ROOT = MEDIA_ROOT
 
 ROOT_URLCONF = 'sinewslite.urls'
 
@@ -106,6 +109,7 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # News API Key
 NEWS_API_KEY = os.environ.get('NEWS_API_KEY')

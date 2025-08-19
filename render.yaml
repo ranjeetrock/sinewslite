@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: sinewslite
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn sinewslite.wsgi:application"
+
+    # Attach a persistent disk for uploads
+    disk:
+      name: media
+      mountPath: /opt/render/project/src/media
