@@ -8,7 +8,7 @@
   <!-- LIVE TV NEWS SECTION -->
   <div class="bg-white rounded shadow mb-6 bg-white">
     <!-- Image -->
-    <a href="https://www.youtube.com/@swadeshiincredible">
+    <a href="https://www.youtube.com/@swadeshiincredible" target="_blank">
       <img src="{% static 'livetv.png' %}"
            alt="Swadeshi Incredible Live"
            class="w-full rounded-t">
@@ -32,7 +32,7 @@
         आप अपने आस-पास की खबरों को WhatsApp के माध्यम से ऊपर दिए हुए नंबर पर हमें भेज सकते हैं।
       </p>
       <!-- Button -->
-      <a href="https://www.youtube.com/@swadeshiincredible"
+      <a href="https://www.youtube.com/@swadeshiincredible" target="_blank"
          class="inline-block  text-center
                 border border-red-600 text-red-600 font-semibold text-sm
                 px-4 py-2 my-4 rounded ">
@@ -48,21 +48,21 @@
     </h3>
     <div class="mt-6 flex flex-col gap-2 bg-gray-100 p-4">
       <!-- Facebook -->
-     <a href="#"
+     <a href="https://www.facebook.com/swadeshiincredible" target="_blank"
    class="flex items-center bg-white rounded shadow  px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200">
   <i class="fab fa-facebook-f text-xl text-blue-600 mr-2"></i>
   <span class="text-lg font-bold px-4">Facebook</span>
 </a>
 
       <!-- Twitter -->
-      <a href="#"
+      <a href="https://x.com/sinewsgorakhpur" target="_blank" 
    class="flex items-center bg-white rounded shadow px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200">
   <i class="fab fa-twitter text-xl text-sky-400 mr-2"></i>
   <span class="text-lg font-bold px-4">Twitter</span>
 </a>
 
       <!-- YouTube -->
-      <a href="#"
+      <a href="https://www.youtube.com/@swadeshiincredible" target="_blank"
    class="flex items-center bg-white rounded shadow px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200">
   <i class="fab fa-youtube text-xl text-red-600 mr-2"></i>
   <span class="text-lg font-bold px-4">YouTube</span>
@@ -114,13 +114,14 @@
         <div class="font-bold mb-4">
           {% if paper.file %}
             <a href="{{ paper.file.url }}" target="_blank">
+              
               {{ paper.title|default:"Untitled" }}
-              {% if paper.published_on %}: {{ paper.published_on|date:"d M Y" }}{% endif %}
+              <!-- {% if paper.published_on %}: {{ paper.published_on|date:"d M Y" }}{% endif %} -->
             </a>
           {% else %}
             <span class="text-gray-500">
               {{ paper.title|default:"Untitled" }}
-              {% if paper.published_on %}: {{ paper.published_on|date:"d M Y" }}{% endif %}
+              <!-- {% if paper.published_on %}: {{ paper.published_on|date:"d M Y" }}{% endif %} -->
               (No file)
             </span>
           {% endif %}
