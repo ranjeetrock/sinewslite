@@ -1,3 +1,5 @@
+<!-- _sidebar.html -->
+
 {% load static tailwind_tags %} {% load static %}
 
 <aside class="w-full flex-[0_0_35%] lg:flex-[0_0_35%] space-y-6">
@@ -91,68 +93,50 @@
   </div>
 
   <!-- E-News Paper -->
-  <div class="bg-white rounded shadow p-4">
-    <h3 class="text-lg font-bold mb-3 border-b-2 border-red-600 pb-1">
-      E-News Paper
-    </h3>
-    <ul class="space-y-3 mt-6">
+{# ---- E-News Paper (inline in _sidebar.html) ---- #}
+<p class="text-sm">DEBUG papers count: {{ papers|length }}</p>
+
+<div class="bg-white rounded shadow p-4">
+  <h3 class="text-lg font-bold mb-3 border-b-2 border-red-600 pb-1">
+    E-News Paper
+  </h3>
+
+  <ul class="space-y-3 mt-6">
+    {% for paper in papers %}
       <li class="bg-white rounded shadow p-4">
         <div class="flex items-center space-x-2 mb-1">
           <span class="text-red-600 text-xs font-bold px-1 py-0.5 rounded">
-            By Administration
+            By {{ paper.uploaded_by|default:"Administration" }}
           </span>
           <span class="text-xs font-bold">E-News Paper (PDF)</span>
         </div>
+
         <div class="font-bold mb-4">
-          <a href="#">3rd Year 2nd Edition : 30 June to 6 July 2025</a>
+          {% if paper.file %}
+            <a href="{{ paper.file.url }}" target="_blank">View PDF</a>
+
+            <!-- optional small download button -->
+            <a href="{{ paper.file.url }}" target="_blank"
+               class="inline-block ml-3 text-xs font-semibold border border-red-600 px-3 py-1 rounded hover:bg-red-600 hover:text-white">
+              View PDF
+            </a>
+          {% else %}
+            <span class="text-gray-500">
+              {{ paper.title|default:"Untitled" }}{% if paper.published_on %} : {{ paper.published_on|date:"d M Y" }}{% endif %} (No file)
+            </span>
+          {% endif %}
         </div>
       </li>
-      <li class="bg-white rounded shadow p-4">
-        <div class="flex items-center space-x-2 mb-1">
-          <span class="text-red-600 text-xs font-bold px-1 py-0.5 rounded">
-            By Administration
-          </span>
-          <span class="text-xs font-bold">E-News Paper (PDF)</span>
-        </div>
-        <div class="font-bold mb-4">
-          <a href="#">3rd Year 2nd Edition : 30 June to 6 July 2025</a>
-        </div>
-      </li>
-      <li class="bg-white rounded shadow p-4">
-        <div class="flex items-center space-x-2 mb-1">
-          <span class="text-red-600 text-xs font-bold px-1 py-0.5 rounded">
-            By Administration
-          </span>
-          <span class="text-xs font-bold">E-News Paper (PDF)</span>
-        </div>
-        <div class="font-bold mb-4">
-          <a href="#">3rd Year 2nd Edition : 30 June to 6 July 2025</a>
-        </div>
-      </li>
-      <li class="bg-white rounded shadow p-4">
-        <div class="flex items-center space-x-2 mb-1">
-          <span class="text-red-600 text-xs font-bold px-1 py-0.5 rounded">
-            By Administration
-          </span>
-          <span class="text-xs font-bold">E-News Paper (PDF)</span>
-        </div>
-        <div class="font-bold mb-4">
-          <a href="#">3rd Year 2nd Edition : 30 June to 6 July 2025</a>
-        </div>
-      </li>
-      <li class="bg-white rounded shadow p-4">
-        <div class="flex items-center space-x-2 mb-1">
-          <span class="text-red-600 text-xs font-bold px-1 py-0.5 rounded">
-            By Administration
-          </span>
-          <span class="text-xs font-bold">E-News Paper (PDF)</span>
-        </div>
-        <div class="font-bold mb-4">
-          <a href="#">3rd Year 2nd Edition : 30 June to 6 July 2025</a>
-        </div>
-      </li>
-    </ul>
-  </div>
+    {% empty %}
+      <li class="text-gray-500">No E-News Papers available.</li>
+    {% endfor %}
+  </ul>
+</div>
+{# ---- end E-News Paper ---- #}
+
+
+
+
 
   <!-- Tags -->
   <div class="bg-white rounded shadow p-4">
@@ -215,43 +199,43 @@
     </h3>
     <ul class="space-y-2 mt-6">
       <li>
-        <a href="#"
+        <a href="{% url 'news:live_category' 'business' %}"
            class="flex justify-between items-center bg-white rounded shadow px-4 py-2 rounded hover:bg-red-700 hover:text-white transition text-xs font-semibold">
           <span>BUSINESS</span><span>&gt;&gt;</span>
         </a>
       </li>
       <li>
-        <a href="#"
+        <a href="{% url 'news:live_category' 'politics' %}"
            class="flex justify-between items-center bg-white rounded shadow px-4 py-2 rounded hover:bg-red-700 hover:text-white transition text-xs font-semibold">
           <span>POLITICS</span><span>&gt;&gt;</span>
         </a>
       </li>
       <li>
-        <a href="#"
+        <a href="{% url 'news:live_category' 'entertainment' %}"
            class="flex justify-between items-center bg-white rounded shadow px-4 py-2 rounded hover:bg-red-700 hover:text-white transition text-xs font-semibold">
           <span>ENTERTAINMENT</span><span>&gt;&gt;</span>
         </a>
       </li>
       <li>
-        <a href="#"
+        <a href="{% url 'news:live_category' 'health' %}"
            class="flex justify-between items-center bg-white rounded shadow px-4 py-2 rounded hover:bg-red-700 hover:text-white transition text-xs font-semibold">
           <span>HEALTH</span><span>&gt;&gt;</span>
         </a>
       </li>
       <li>
-        <a href="#"
+        <a href="{% url 'news:live_category' 'science' %}"
            class="flex justify-between items-center bg-white rounded shadow px-4 py-2 rounded hover:bg-red-700 hover:text-white transition text-xs font-semibold">
           <span>SCIENCE</span><span>&gt;&gt;</span>
         </a>
       </li>
       <li>
-        <a href="#"
+        <a href="{% url 'news:live_category' 'sports' %}"
            class="flex justify-between items-center bg-white rounded shadow px-4 py-2 rounded hover:bg-red-700 hover:text-white transition text-xs font-semibold">
           <span>SPORTS</span><span>&gt;&gt;</span>
         </a>
       </li>
       <li>
-        <a href="#"
+        <a href="{% url 'news:live_category' 'technology' %}"
            class="flex justify-between items-center bg-white rounded shadow px-4 py-2 rounded hover:bg-red-700 hover:text-white transition text-xs font-semibold">
           <span>TECHNOLOGY</span><span>&gt;&gt;</span>
         </a>
