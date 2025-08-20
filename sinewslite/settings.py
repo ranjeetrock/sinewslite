@@ -42,13 +42,13 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
 }
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.RawMediaCloudinaryStorage'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Ensure original file names are kept
 CLOUDINARY = {
     'use_filename': True,
     'unique_filename': False,
-    'resource_type': 'raw'
+    # 'resource_type': 'raw'
 }
 
 
