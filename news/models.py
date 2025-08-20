@@ -1,4 +1,6 @@
 from django.db import models
+from cloudinary_storage.storage import RawMediaCloudinaryStorage
+
 
 class PatrakaarMitra(models.Model):
     GENDER_CHOICES = [
@@ -6,7 +8,7 @@ class PatrakaarMitra(models.Model):
         ('Female', 'Female'),
         ('Other', 'Other'),
     ]
-    
+
     CATEGORY_CHOICES = [
         ('Patrakaar', 'Patrakaar Mitra'),
         ('Reporter', 'Reporter'),
@@ -27,26 +29,18 @@ class PatrakaarMitra(models.Model):
         return self.name
 
 
-
-
-# enewspaper section
-from django.db import models
-from cloudinary_storage.storage import RawMediaCloudinaryStorage
-
-
 class ENewsPaper(models.Model):
     title = models.CharField(max_length=255)
-    file = models.FileField(storage=RawMediaCloudinaryStorage(), blank=True, null=True)  # allow blank to avoid .url errors
+    file = models.FileField(
+        storage=RawMediaCloudinaryStorage(),  # uses Cloudinary Raw storage
+        blank=True,
+        null=True
+    )
     published_on = models.DateField(blank=True, null=True)
     uploaded_by = models.CharField(max_length=100, default="Administration")
 
-    # class Meta:
-    #     ordering = ['-published_on']
-
-    # def __str__(self):
-    #     # defensive __str__ to avoid admin errors when fields are null
-    #     return self.title or f"ENewsPaper #{self.pk or 'new'}"
-
+    class Meta:
+        ordering = ['-published_on']  # show latest first
 
     def __str__(self):
-        return self.title
+        return self.title or f"ENewsPaper #{self.pk or 'new'}"
