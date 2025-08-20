@@ -41,7 +41,7 @@ CLOUDINARY_STORAGE = {
     'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
     'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
     'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
-    'SECURE': True,  # serve over HTTPS
+    # 'SECURE': True,  # serve over HTTPS
 }
 
 
@@ -132,9 +132,9 @@ STATICFILES_DIRS = [BASE_DIR / "static"]  # ✅ points to your custom static dir
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-MEDIA_URL = '/media/'
+# MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # News API Key
 NEWS_API_KEY = os.environ.get('NEWS_API_KEY')
