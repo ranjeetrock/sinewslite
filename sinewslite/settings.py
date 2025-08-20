@@ -7,6 +7,9 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 import dj_database_url
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Load .env variables first
 load_dotenv()
@@ -20,29 +23,21 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", 'unsafe-dev-key-for-local-use-only')
 # Debug mode
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-# DEBUG = True
-
-
 # Allowed hosts
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '127.0.0.1,localhost').split(',')
 
-
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
+# Cloudinary configuration (read from env vars)
+cloudinary.config(
+    cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME"),
+    api_key=os.getenv("CLOUDINARY_API_KEY"),
+    api_secret=os.getenv("CLOUDINARY_API_SECRET"),
+    secure=True
+)
 
 # Use Cloudinary for file storage
-
-
-
-
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
-    'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
-    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
-}
-
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.RawMediaCloudinaryStorage'
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.RawMediaCloudinaryStorage"
+# Or for images/videos you can use:
+# DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
 # Ensure original file names are kept
 CLOUDINARY = {
@@ -50,9 +45,6 @@ CLOUDINARY = {
     'unique_filename': False,
     'resource_type': 'raw'
 }
-
-
-
 
 # Application definition
 INSTALLED_APPS = [
@@ -69,9 +61,9 @@ INSTALLED_APPS = [
     'tailwind',
     'theme',
 
-    #  cloudinary setup
-       'cloudinary',
-       'cloudinary_storage',
+    # Cloudinary
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 TAILWIND_APP_NAME = "theme"
@@ -79,7 +71,7 @@ INTERNAL_IPS = ["127.0.0.1"]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # ✅ add this for static file serving
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # ✅ for static files
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -87,9 +79,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-# Tell Whitenoise to also serve media
-WHITENOISE_ALLOW_ALL_ORIGINS = True
 
+# Tell Whitenoise to also serve media (optional)
+WHITENOISE_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'sinewslite.urls'
 
@@ -105,7 +97,6 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.csrf',
                 'news.context_processors.breaking_news',
-                # << add this line exactly >>
                 "news.context_processors.enews_papers",
             ],
         },
@@ -135,18 +126,15 @@ USE_TZ = True
 
 # Static & Media files
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]  # ✅ points to your custom static dir (like Tailwind)
-# STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # News API Key
 NEWS_API_KEY = os.environ.get('NEWS_API_KEY')
-# NEWS_API_KEY = ''
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
