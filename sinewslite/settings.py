@@ -62,8 +62,8 @@ INSTALLED_APPS = [
     'theme',
 
     #  cloudinary setup
-    'cloudinary_storage',
-    'cloudinary',
+       'cloudinary',
+       'cloudinary_storage',
 ]
 
 TAILWIND_APP_NAME = "theme"

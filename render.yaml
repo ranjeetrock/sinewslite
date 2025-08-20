@@ -1,27 +1,27 @@
-services:
-  - type: web
-    name: sinewslite
-    env: python
-    plan: free
-    buildCommand: |
-      pip install -r requirements.txt
-      python manage.py collectstatic --noinput
-    startCommand: gunicorn sinewslite.wsgi:application
-    envVars:
-      - key: DJANGO_SETTINGS_MODULE
-        value: sinewslite.settings
-      - key: PYTHON_VERSION
-        value: 3.11
-      # Use ONE of the following approaches:
+# services:
+#   - type: web
+#     name: sinewslite
+#     env: python
+#     plan: free
+#     buildCommand: |
+#       pip install -r requirements.txt
+#       python manage.py collectstatic --noinput
+#     startCommand: gunicorn sinewslite.wsgi:application
+#     envVars:
+#       - key: DJANGO_SETTINGS_MODULE
+#         value: sinewslite.settings
+#       - key: PYTHON_VERSION
+#         value: 3.11
+#       # Use ONE of the following approaches:
 
-      # (A) Single var (simplest)
-      # - key: CLOUDINARY_URL
-      #   value: cloudinary://API_KEY:API_SECRET@CLOUD_NAME
+#       # (A) Single var (simplest)
+#       # - key: CLOUDINARY_URL
+#       #   value: cloudinary://API_KEY:API_SECRET@CLOUD_NAME
 
-      # (B) Three vars (comment the single var above if you use these)
-      - key: CLOUDINARY_CLOUD_NAME
-        value: your_cloud_name
-      - key: CLOUDINARY_API_KEY
-        value: your_api_key
-      - key: CLOUDINARY_API_SECRET
-        value: your_api_secret
+#       # (B) Three vars (comment the single var above if you use these)
+#       - key: CLOUDINARY_CLOUD_NAME
+#         value: your_cloud_name
+#       - key: CLOUDINARY_API_KEY
+#         value: your_api_key
+#       - key: CLOUDINARY_API_SECRET
+#         value: your_api_secret
