@@ -27,22 +27,30 @@ DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '127.0.0.1,localhost').split(',')
 
 
-
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Use Cloudinary for file storage
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 
-# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.RawMediaCloudinaryStorage'
 
 
-# Cloudinary credentials (Render injects them as env vars)
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
     'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
     'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
-    # 'SECURE': True,  # serve over HTTPS
 }
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.RawMediaCloudinaryStorage'
+
+# Ensure original file names are kept
+CLOUDINARY = {
+    'use_filename': True,
+    'unique_filename': False,
+    'resource_type': 'raw'
+}
+
 
 
 
