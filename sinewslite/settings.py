@@ -26,6 +26,26 @@ DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 # Allowed hosts
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '127.0.0.1,localhost').split(',')
 
+
+
+
+# Use Cloudinary for file storage
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.RawMediaCloudinaryStorage'
+
+
+# Cloudinary credentials (Render injects them as env vars)
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
+    'SECURE': True,  # serve over HTTPS
+}
+
+
+
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -40,6 +60,10 @@ INSTALLED_APPS = [
 
     'tailwind',
     'theme',
+
+    #  cloudinary setup
+    'cloudinary_storage',
+    'cloudinary',
 ]
 
 TAILWIND_APP_NAME = "theme"

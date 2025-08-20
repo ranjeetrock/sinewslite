@@ -31,10 +31,13 @@ class PatrakaarMitra(models.Model):
 
 # enewspaper section
 from django.db import models
+from cloudinary_storage.storage import RawMediaCloudinaryStorage
+
 
 class ENewsPaper(models.Model):
     title = models.CharField(max_length=255)
-    file = models.FileField(upload_to="enewspapers/", blank=True, null=True)  # allow blank to avoid .url errors
+    file = models.FileField(upload_to="enewspapers/", storage=RawMediaCloudinaryStorage(),null=True,
+    blank=True)  # allow blank to avoid .url errors
     published_on = models.DateField(blank=True, null=True)
     uploaded_by = models.CharField(max_length=100, default="Administration")
 
@@ -44,4 +47,5 @@ class ENewsPaper(models.Model):
     def __str__(self):
         # defensive __str__ to avoid admin errors when fields are null
         return self.title or f"ENewsPaper #{self.pk or 'new'}"
+
 
