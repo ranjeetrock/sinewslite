@@ -127,6 +127,7 @@ MEDIA_ROOT = BASE_DIR / "media"   # keep for local dev only, not used on Render
 
 # API Keys
 NEWS_API_KEY = os.environ.get("NEWS_API_KEY")
+# NEWS_API_KEY = " "
 
 # Default PK field
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

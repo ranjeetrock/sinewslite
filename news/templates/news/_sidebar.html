@@ -6,40 +6,44 @@
 
 
   <!-- LIVE TV NEWS SECTION -->
-  <div class="bg-white rounded shadow mb-6 bg-white">
-    <!-- Image -->
-    <a href="https://www.youtube.com/@swadeshiincredible" target="_blank">
-      <img src="{% static 'livetv.png' %}"
-           alt="Swadeshi Incredible Live"
-           class="w-full rounded-t">
-    </a>
-    <!-- Content -->
-    <div class="p-4">
-      <!-- Badge and Date -->
-      <div class="flex items-center justify-between mb-2">
-        <span class="bg-red-600 text-white text-xs font-semibold px-2 py-0.5 rounded">
-          LIVE TV NEWS
-        </span>
-        <span class="text-xs font-bold text-black-500">04-08-2025</span>
+<div class="bg-white rounded shadow mb-6 bg-white">
+  <!-- Image -->
+  <a href="https://www.youtube.com/@swadeshiincredible" target="_blank">
+    <img src="{% static 'livetv.png' %}"
+         alt="Swadeshi Incredible Live"
+         class="w-full rounded-t">
+  </a>
+  <!-- Content -->
+  <div class="p-4">
+    <!-- Badge and Date -->
+    <div class="mb-2">
+      <span class="bg-red-600 text-white text-xs font-bold px-2 py-1">
+        LIVE TV NEWS
+      </span>
+      <div class="mt-1.5">
+        <span class="text-red-600 text-xs font-bold px-1 py-0.5">By Administration</span>
+        <span class="text-xs font-bold text-black-500 px-2">{% now "d-m-Y" %}</span>
       </div>
-      <!-- Title -->
-      <h2 class="font-bold text-lg mb-2">
-        स्वदेशी इनक्रेडिबल न्यूज़ चैनल पर जाने के लिए यहाँ क्लिक करें !
-      </h2>
-      <!-- Description -->
-      <p class="text-sm text-gray-700 mb-3">
-        स्वदेशी इनक्रेडिबल न्यूज़ चैनल एवं अखबार आपका अपना न्यूज़ चैनल है।
-        आप अपने आस-पास की खबरों को WhatsApp के माध्यम से ऊपर दिए हुए नंबर पर हमें भेज सकते हैं।
-      </p>
-      <!-- Button -->
-      <a href="https://www.youtube.com/@swadeshiincredible" target="_blank"
-         class="inline-block  text-center
-                border border-red-600 text-red-600 font-semibold text-sm
-                px-4 py-2 my-4 rounded ">
-        Click Here
-      </a>
     </div>
+    <!-- Title -->
+    <h2 class="font-bold text-lg mb-2">
+      स्वदेशी इनक्रेडिबल न्यूज़ चैनल पर जाने के लिए यहाँ क्लिक करें !
+    </h2>
+    <!-- Description -->
+    <p class="text-sm text-gray-700 mb-3">
+      स्वदेशी इनक्रेडिबल न्यूज़ चैनल एवं अखबार आपका अपना न्यूज़ चैनल है।
+      आप अपने आस-पास की खबरों को WhatsApp के माध्यम से ऊपर दिए हुए नंबर पर हमें भेज सकते हैं।
+    </p>
+    <!-- Button -->
+    <a href="https://www.youtube.com/@swadeshiincredible" target="_blank"
+       class="inline-block text-center
+              border border-red-600 text-red-600 font-semibold text-sm
+              px-4 py-2 my-4 rounded ">
+      Click Here
+    </a>
   </div>
+</div>
+
 
   <!-- Stay Connected -->
   <div class="bg-white rounded shadow p-4">
@@ -104,29 +108,36 @@
   <ul class="space-y-3 mt-6">
     {% for paper in papers %}
       <li class="bg-white rounded shadow p-4">
-        <div class="flex items-center space-x-2 mb-1">
-          <span class="text-red-600 text-xs font-bold px-1 py-0.5 rounded">
-            By {{ paper.uploaded_by|default:"Administration" }}
-          </span>
-          <span class="text-xs font-bold">E-News Paper (PDF)</span>
-        </div>
 
-        <div class="font-bold mb-4">
-          {% if paper.file %}
-            <a href="{{ paper.file.url }}" target="_blank">
-              
-              {{ paper.title|default:"Untitled" }}
-              <!-- {% if paper.published_on %}: {{ paper.published_on|date:"d M Y" }}{% endif %} -->
-            </a>
-          {% else %}
-            <span class="text-gray-500">
-              {{ paper.title|default:"Untitled" }}
-              <!-- {% if paper.published_on %}: {{ paper.published_on|date:"d M Y" }}{% endif %} -->
-              (No file)
-            </span>
-          {% endif %}
-        </div>
-      </li>
+  <!-- Date Section (like screenshot) -->
+  {% if paper.published_on %}
+    <div>
+      <span class="bg-red-600 text-white text-xs font-bold px-2 py-1 ">
+        Date : {{ paper.published_on|date:"Y-m-d" }}
+      </span>
+    </div>
+  {% endif %}
+
+  <div class="flex items-center space-x-2 mb-1 mt-2">
+    <span class="text-red-600 text-xs font-bold px-1 py-0.5 rounded">
+      By {{ paper.uploaded_by|default:"Administration" }}
+    </span>
+    <span class="text-xs font-bold">E-News Paper (PDF)</span>
+  </div>
+
+  <div class="font-bold mb-4">
+    {% if paper.file %}
+      <a href="{{ paper.file.url }}" target="_blank">
+        {{ paper.title|default:"Untitled" }}
+      </a>
+    {% else %}
+      <span class="text-gray-500">
+        {{ paper.title|default:"Untitled" }} (No file)
+      </span>
+    {% endif %}
+  </div>
+</li>
+
     {% empty %}
       <li class="text-gray-500">No E-News Papers available.</li>
     {% endfor %}
