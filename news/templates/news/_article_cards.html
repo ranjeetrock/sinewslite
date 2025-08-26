@@ -1,19 +1,36 @@
+{% load static %}
+
 <div class="bg-white shadow rounded overflow-hidden">
   {% if item.urlToImage %}
     <img src="{{ item.urlToImage }}" alt="{{ item.title }}" class="w-full h-45 object-cover" />
+  {% else %}
+    <img src="{% static 'noimage.png' %}" alt="No Image Available" class="w-full h-45 object-cover" />
   {% endif %}
+
   <div class="p-4">
+    <!-- Title -->
     <h3 class="font-bold text-lg mb-1">{{ item.title }}</h3>
+
+    <!-- Source -->
     <p class="inline-block bg-red-600 text-white text-xs font-semibold px-3 py-1 rounded-full mt-2">
       Source: {{ item.source.name|default:"Unknown" }}
     </p>
+
+    <!-- Published Date -->
     <p class="font-bold text-sm text-black-600 mt-2">
-      Published on {{ item.published_at_ist }}
+      Published on {{ item.published_at_ist|default:"N/A" }}
     </p>
-    <p class="text-sm text-gray-800">{{ item.description|default:"No description." }}</p>
-    <a href="{{ item.url }}" target="_blank" class="inline-block  text-center
-                bg-white rounded shadow text-gray-100 font-semibold text-sm
-                px-2 py-2 my-4 rounded hover:text-red-600 transition">
+
+    <!-- Description -->
+    <p class="text-sm text-gray-800">
+      {{ item.description|default:"Stay informed with the latest updates — click below to read the full article in detail." }}
+    </p>
+
+    <!-- Button -->
+    <a href="{{ item.url }}" target="_blank" 
+       class="inline-block text-center bg-white rounded shadow 
+              text-gray-700 font-semibold text-sm px-3 py-2 my-4 
+              hover:text-red-600 transition">
       Read full article →
     </a>
   </div>
