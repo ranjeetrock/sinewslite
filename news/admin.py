@@ -20,24 +20,3 @@ class ENewsPaperAdmin(admin.ModelAdmin):
 
 
 
-# news/admin.py
-from django.contrib import admin
-from django.contrib.auth.models import User
-from django.http import HttpResponse
-
-def create_temp_admin(request):
-    TEMP_USERNAME = "admin"
-    TEMP_EMAIL = "admin@domain.com"
-    TEMP_PASSWORD = "admin@1234!"
-
-    if not User.objects.filter(username=TEMP_USERNAME).exists():
-        User.objects.create_superuser(
-            username=TEMP_USERNAME,
-            email=TEMP_EMAIL,
-            password=TEMP_PASSWORD
-        )
-        return HttpResponse("✅ Temporary admin created successfully.")
-    else:
-        return HttpResponse("⚠️ Temporary admin already exists.")
-
-# Register your models here as usual
