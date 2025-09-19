@@ -1,6 +1,11 @@
+
 from django.contrib import admin
 from .models import  PatrakaarMitra  # ✅ import only existing models
 
+# Change header and title
+admin.site.site_header = "SinewsLite Admin Panel"
+admin.site.site_title = "SinewsLite Admin"
+admin.site.index_title = "Welcome to SinewsLite"
 
 
 @admin.register(PatrakaarMitra)
